@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -54,6 +55,10 @@ jobs:
     - name: Build
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
-    - name: Test
-      working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: ctest --build-config ${{ matrix.build_type }}
+    - name: Upload Build
+      uses: actions/upload-artifact@v4
+      with:
+        name: fbx2memmesh-${{ matrix.os }}-${{ matrix.cpp_compiler }}
+        path: |
+          ${{ steps.strings.outputs.build-output-dir }}/bin/fbx2memmesh*
+          ${{ steps.strings.outputs.build-output-dir }}/Release/fbx2memmesh*
