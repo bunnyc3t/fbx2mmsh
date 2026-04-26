@@ -1,9 +1,12 @@
+#pragma once
+#include <cstdint> // Woopsie!
+
 #pragma pack(push, 1)
 
 struct MeshHeader {
-   uint32 magic;
-   uint32 version;
-   uint32 numVerts;
-}
+   uint32_t magic;
+   uint32_t version;
+   uint32_t numVerts;
+}; 
 
 #pragma pack(pop)
